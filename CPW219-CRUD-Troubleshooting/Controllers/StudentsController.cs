@@ -29,8 +29,8 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             if (ModelState.IsValid)
             {
                 StudentDb.Add(student, context);
-                ViewData["Message"] = $"{student.Name} was added!";
-                return View();
+                TempData["Message"] = $"{student.Name} was added!";
+                return RedirectToAction("Index");
             }
 
             //Show web page with errors
@@ -43,7 +43,7 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             Student student = StudentDb.GetStudent(context, id);
 
             //show it on web page
-            return View();
+            return View(student);
         }
 
         [HttpPost]
@@ -52,8 +52,8 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
             if (ModelState.IsValid)
             {
                 StudentDb.Update(context, student);
-                ViewData["Message"] = "Product Updated!";
-                return View(student);
+                TempData["Message"] = "Student Updated!";
+                return RedirectToAction("Index");
             }
             //return view with errors
             return View(student);
@@ -69,9 +69,10 @@ namespace CPW219_CRUD_Troubleshooting.Controllers
         public IActionResult DeleteConfirm(int id)
         {
             //Get Product from database
-            Student student = StudentDb.GetStudent(context, id);
+            Student p = StudentDb.GetStudent(context, id);
 
-            StudentDb.Delete(context, student);
+            StudentDb.Delete(context, p);
+            TempData["Message"] = "Student Removed!";
 
             return RedirectToAction("Index");
         }
