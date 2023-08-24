@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Student>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Student Catalog";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Register new Student</a>
 </p>
 <table class="table">
     <thead>
@@ -25,21 +25,21 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var student in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StudentId)
+                @Html.DisplayFor(modelItem => student.StudentId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => student.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
+                @Html.DisplayFor(modelItem => student.DateOfBirth)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@student.StudentId">Edit</a>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@student.StudentId">Details</a>
+                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@student.StudentId">Delete</a>
             </td>
         </tr>
 }
